@@ -118,7 +118,7 @@ extension SignalType where T: BooleanType {
     public func not() -> Signal<Bool, E> {
         return Signal { observer in
             return self.observe { (event: Event<T, E>) in
-                observer(event.map { value in !value })
+                observer(event.map { !$0 })
             }
         }
     }
