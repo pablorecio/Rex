@@ -99,3 +99,14 @@ extension SignalProducerType where T: SequenceType {
     }
 }
 
+
+// MARK: Boolean Operations
+
+extension SignalProducerType where T: BooleanType {
+    /// Returns a producer that inverts every value sent on self
+    @warn_unused_result(message="Did you forget to call `start` on the producer?")
+    public func not() -> SignalProducer<Bool, E> {
+        return lift { $0.not() }
+    }
+}
+

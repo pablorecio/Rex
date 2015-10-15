@@ -109,3 +109,18 @@ extension SignalType where T: SequenceType {
         }
     }
 }
+
+// MARK: Boolean Operations
+
+extension SignalType where T: BooleanType {    
+    /// Returns a signal that inverts each value sent on self
+    @warn_unused_result(message="Did you forget to call `observe` on the signal?")
+    public func not() -> Signal<Bool, E> {
+        return Signal { observer in
+            return self.observe { (event: Event<T, E>) in
+                observer(event.map { value in !value })
+            }
+        }
+    }
+}
+

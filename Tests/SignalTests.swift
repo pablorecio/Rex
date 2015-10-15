@@ -134,6 +134,23 @@ final class SignalTests: XCTestCase {
         sendNext(sink, [2, 3])
         XCTAssert(values == [1, 2, 3])
     }
+    
+    func testNot() {
+        let (signal, sink) = Signal<Bool, NoError>.pipe()
+        var invertedValue = false
+        
+        signal
+            .not()
+            .observe(next: {
+                invertedValue = $0
+            })
+        
+        sendNext(sink, false)
+        XCTAssertTrue(invertedValue)
+
+        sendNext(sink, true)
+        XCTAssertFalse(invertedValue)
+    }
 }
 
 enum TestError: ErrorType {
