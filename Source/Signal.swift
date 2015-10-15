@@ -124,3 +124,58 @@ extension SignalType where T: BooleanType {
     }
 }
 
+extension SignalType where T: SequenceType, T.Generator.Element: BooleanType {
+    /// Returns a signal that sends `a && b && c && ...` for each value (a, b, c, ...) sent on self
+    @warn_unused_result(message="Did you forget to call `observe` on the signal?")
+    public func and() -> Signal<Bool, E> {
+        return Signal<Bool, E> { observer in
+            return self.observe { event in
+                switch event {
+                case let .Next(sequence):
+                    sendNext(observer, sequence.reduce(true) { $0.boolValue && $1.boolValue })
+                case let .Error(error):
+                    sendError(observer, error)
+                case .Completed:
+                    sendCompleted(observer)
+                case .Interrupted:
+                    sendInterrupted(observer)
+                }
+            }
+        }
+    }
+
+    /// Returns a signal that sends `a ||& b || c || ...` for each value (a, b, c, ...) sent on self
+    @warn_unused_result(message="Did you forget to call `observe` on the signal?")
+    public func or() -> Signal<Bool, E> {
+        return Signal<Bool, E> { observer in
+            return self.observe { event in
+                switch event {
+                case let .Next(sequence):
+                    sendNext(observer, sequence.reduce(false) { $0.boolValue || $1.boolValue })
+                case let .Error(error):
+                    sendError(observer, error)
+                case .Completed:
+                    sendCompleted(observer)
+                case .Interrupted:
+                    sendInterrupted(observer)
+                }
+            }
+        }
+    }
+}
+
+extension SignalType where T == (Bool, Bool) {
+    /// Returns a signal that sends `a && b` for each value (a, b) sent on self
+    @warn_unused_result(message="Did you forget to call `observe` on the signal?")
+    public func and() -> Signal<Bool, E> {
+        return self.map{ [$0.0, $0.1] }.and()
+    }
+    
+    /// Returns a signal that sends `a || b` for each value (a, b) sent on self
+    @warn_unused_result(message="Did you forget to call `observe` on the signal?")
+    public func or() -> Signal<Bool, E> {
+        return self.map{ [$0.0, $0.1] }.or()
+    }
+}
+
+

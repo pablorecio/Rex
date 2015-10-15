@@ -151,6 +151,98 @@ final class SignalTests: XCTestCase {
         sendNext(sink, true)
         XCTAssertFalse(invertedValue)
     }
+    
+    func testAndSequenceType() {
+        let (signal, sink) = Signal<[Bool], NoError>.pipe()
+        var result = false
+        
+        signal
+            .and()
+            .observe(next: {
+                result = $0
+            })
+        
+        sendNext(sink, [true, true])
+        XCTAssertTrue(result)
+        
+        sendNext(sink, [true, false])
+        XCTAssertFalse(result)
+        
+        sendNext(sink, [false, true])
+        XCTAssertFalse(result)
+        
+        sendNext(sink, [false, false])
+        XCTAssertFalse(result)
+    }
+    
+    func testOrSequenceType() {
+        let (signal, sink) = Signal<[Bool], NoError>.pipe()
+        var result = false
+        
+        signal
+            .or()
+            .observe(next: {
+                result = $0
+            })
+        
+        sendNext(sink, [true, true])
+        XCTAssertTrue(result)
+        
+        sendNext(sink, [true, false])
+        XCTAssertTrue(result)
+        
+        sendNext(sink, [false, true])
+        XCTAssertTrue(result)
+        
+        sendNext(sink, [false, false])
+        XCTAssertFalse(result)
+    }
+    
+    func testAndTuple2() {
+        let (signal, sink) = Signal<(Bool, Bool), NoError>.pipe()
+        var result = false
+        
+        signal
+            .and()
+            .observe(next: {
+                result = $0
+            })
+        
+        sendNext(sink, (true, true))
+        XCTAssertTrue(result)
+        
+        sendNext(sink, (true, false))
+        XCTAssertFalse(result)
+        
+        sendNext(sink, (false, true))
+        XCTAssertFalse(result)
+        
+        sendNext(sink, (false, false))
+        XCTAssertFalse(result)
+    }
+    
+    func testOrTuple2() {
+        let (signal, sink) = Signal<(Bool, Bool), NoError>.pipe()
+        var result = false
+        
+        signal
+            .or()
+            .observe(next: {
+                result = $0
+            })
+        
+        sendNext(sink, (true, true))
+        XCTAssertTrue(result)
+        
+        sendNext(sink, (true, false))
+        XCTAssertTrue(result)
+        
+        sendNext(sink, (false, true))
+        XCTAssertTrue(result)
+        
+        sendNext(sink, (false, false))
+        XCTAssertFalse(result)
+    }
 }
 
 enum TestError: ErrorType {
