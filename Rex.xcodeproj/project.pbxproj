@@ -21,6 +21,7 @@
 		21A374881DC69D0800521C86 /* Deprecations+Removals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A374861DC68E8D00521C86 /* Deprecations+Removals.swift */; };
 		21A374891DC69D0900521C86 /* Deprecations+Removals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A374861DC68E8D00521C86 /* Deprecations+Removals.swift */; };
 		21A3748A1DC69D0900521C86 /* Deprecations+Removals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A374861DC68E8D00521C86 /* Deprecations+Removals.swift */; };
+		21F31BCF1DC74687008C9E5B /* UIControl+EnableSendActionsForControlEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0DABA91CCC381F00B6CD2B /* UIControl+EnableSendActionsForControlEvents.swift */; };
 		45CED46F1D27C1E300788BDC /* UIActivityIndicatorViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CED46D1D27C1D400788BDC /* UIActivityIndicatorViewTests.swift */; };
 		45CED4701D27C1E400788BDC /* UIActivityIndicatorViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CED46D1D27C1D400788BDC /* UIActivityIndicatorViewTests.swift */; };
 		4A8EDADB1D54D12400A1734C /* UIControl+EnableSendActionsForControlEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0DABA91CCC381F00B6CD2B /* UIControl+EnableSendActionsForControlEvents.swift */; };
@@ -903,6 +904,7 @@
 				D8715DE21C211643005F4191 /* UIControlTests.swift in Sources */,
 				CC02C18C1CCA704F0025CC04 /* ActionTests.swift in Sources */,
 				D8715DDF1C21163B005F4191 /* NSObjectTests.swift in Sources */,
+				21F31BCF1DC74687008C9E5B /* UIControl+EnableSendActionsForControlEvents.swift in Sources */,
 				7DC3257E1CC6FD1C00746D88 /* UITableViewCellTests.swift in Sources */,
 				D8715DDC1C211637005F4191 /* PropertyTests.swift in Sources */,
 				D8715DDD1C211637005F4191 /* SignalTests.swift in Sources */,

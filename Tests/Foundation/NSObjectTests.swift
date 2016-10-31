@@ -9,6 +9,7 @@
 import Rex
 import ReactiveSwift
 import XCTest
+import enum Result.NoError
 
 final class NSObjectTests: XCTestCase {
     
@@ -55,12 +56,12 @@ final class NSObjectDeallocTests: XCTestCase {
         XCTAssert(_object?.string == "Test")
     }
 
-//    func testClassPropertyDoesntCreateRetainCycle() {
-//        let object = Object()
-//        _object = object
-//        associatedProperty(object, keyPath: "string", placeholder: { _ in "" }) <~ SignalProducer(value: "Test")
-//        XCTAssert(_object?.string == "Test")
-//    }
+    func testClassPropertyDoesntCreateRetainCycle() {
+        let object = Object()
+        _object = object
+        associatedProperty(object, keyPath: "string", placeholder: { "Test"} ) <~ SignalProducer(value: "Test")
+        XCTAssert(_object?.string == "Test")
+    }
 }
 
 class Object: NSObject {

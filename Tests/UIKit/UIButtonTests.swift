@@ -12,26 +12,9 @@ import UIKit
 import XCTest
 import enum Result.NoError
 
-extension UIButton {
-    static func button() -> UIButton {
-        let button = UIButton(type: .custom)
-        return button;
-    }
-    
-    override open func sendAction(_ action: Selector, to target: Any?, for event: UIEvent?) {
-        _ = (target as AnyObject).perform(action, with: nil)
-    }
-}
-
 class UIButtonTests: XCTestCase {
-//    var button: UIButton!
     weak var _button: UIButton?
     
-//    override func setUp() {
-//        button = UIButton(frame: .zero)
-//        _button = button
-//    }
-//    
     override func tearDown() {
         XCTAssert(_button == nil, "Retain cycle detected in UIButton properties")
         super.tearDown()
@@ -66,7 +49,7 @@ class UIButtonTests: XCTestCase {
     func testTitleProperty() {
         let firstTitle = "First title"
         let secondTitle = "Second title"
-        let button = UIButton(frame: CGRect.zero)
+        let button = UIButton(frame: .zero)
         let (pipeSignal, observer) = Signal<String, NoError>.pipe()
         button.reactive.title <~ SignalProducer(signal: pipeSignal)
         button.setTitle("", for: .selected)
@@ -98,7 +81,7 @@ class UIButtonTests: XCTestCase {
         button.reactive.pressed = CocoaAction(action)
         XCTAssertFalse(pressed.value)
         
-//        button.sendActions(for: .touchUpInside)
+        button.sendActions(for: .touchUpInside)
         XCTAssertTrue(pressed.value)
     }
 }
