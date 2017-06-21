@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import ReactiveCocoa
+import ReactiveSwift
 
 class UITableViewCellTests: XCTestCase {
     
@@ -21,10 +21,11 @@ class UITableViewCellTests: XCTestCase {
             fatalError()
         }
 
-        label.rex_text <~
+        label.reactive.text <~
             titleProperty
                 .producer
-                .takeUntil(cell.rex_prepareForReuse)
+                .map(Optional.init) // TODO: Remove in the future, binding with optionals will be available soon in RAC 5. Reference: https://github.com/ReactiveCocoa/ReactiveCocoa/pull/2852
+                .take(until: cell.reactive.prepareForReuse)
 
         XCTAssertEqual(label.text, "John")
 
