@@ -15,7 +15,7 @@ extension UIControl {
 #if os(iOS)
     /// Creates a producer for the sender whenever a specified control event is triggered.
     private func _rex_controlEvents(events: UIControlEvents) -> Signal<UIControl?, NoError> {
-        return reactive.trigger(for: events)
+        return reactive.controlEvents(events)
             .map { [weak self] _ in return self }
     }
     /// Creates a bindable property to wrap a control's value.

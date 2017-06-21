@@ -31,8 +31,8 @@ extension SignalProducerProtocol {
                     var group = groups[key]
                     if group == nil {
                         let (signal, innerObserver) = Signal<Value, Error>.pipe()
-                        let producer = SignalProducer(signal: signal).replayLazily(upTo: Int.max)
-                        
+                        let producer = SignalProducer(signal).replayLazily(upTo: Int.max)
+
                         // Start the buffering immediately.
                         producer.start()
                         observer.send(value: (key, producer))

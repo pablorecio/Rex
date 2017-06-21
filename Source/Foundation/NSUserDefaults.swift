@@ -25,7 +25,7 @@ extension UserDefaults {
                 // it up every time
                 self.object(forKey: key)
             }
-        let changes = SignalProducer<Any?, NoError>(signal: changesSignal)
+        let changes = SignalProducer<Any?, NoError>(changesSignal)
 
         return SignalProducer<Any?, NoError>(value: initial)
             .concat(changes)
